@@ -1,17 +1,67 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import {
+  LuLayoutDashboard,
+  LuFolderKanban,
+  LuHeart,
+  LuUsers,
+  LuSquareCheck,
+  LuChartBar,
+  LuSettings,
+  LuMegaphone
+} from 'react-icons/lu'
+import logo from '../../assets/pmsLogo.png'
+import '../../styles/Dashboard.css'
 
 function Sidebar() {
-  return (
-    <aside className="w-64 bg-black text-white p-5">
-      <h1 className="text-2xl font-bold mb-10">PMS</h1>
+  const location = useLocation();
 
-      <nav className="flex flex-col gap-4">
-        <Link to="/">Dashboard</Link>
-        <Link to="/projects">Projects</Link>
-        <Link to="/tasks">Tasks</Link>
-        <Link to="/teams">Teams</Link>
-        <Link to="/settings">Settings</Link>
+  const menuItems = [
+    { icon: LuLayoutDashboard, label: 'Dashboard', path: '/' },
+    { icon: LuFolderKanban, label: 'Projects', path: '/projects' },
+    { icon: LuHeart, label: 'For you', path: '/foryou' },
+    { icon: LuUsers, label: 'Team', path: '/teams' },
+    { icon: LuSquareCheck, label: 'Tasks', path: '/tasks' },
+    { icon: LuChartBar, label: 'Reports', path: '/reports' },
+    { icon: LuSettings, label: 'Setting', path: '/settings' },
+  ];
+
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-logo">
+        <img src={logo} alt="PMS Logo" />
+      </div>
+
+      <nav className="sidebar-nav">
+        {menuItems.map((item) => (
+          <Link
+            key={item.label}
+            to={item.path}
+            className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+          >
+            <item.icon size={20} />
+            <span>{item.label}</span>
+          </Link>
+        ))}
       </nav>
+
+      <div className="announcement-card">
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
+          <div style={{ background: 'white', padding: '6px', borderRadius: '8px' }}>
+            <LuMegaphone size={16} color="#4f46e5" />
+          </div>
+          <h4 style={{ margin: 0 }}>Announcement!</h4>
+        </div>
+        <p>Meeting Starts in 5 Minutes</p>
+
+        <div className="member-avatars">
+          <img src="https://i.pravatar.cc/150?u=1" alt="Member" className="avatar-stack" />
+          <img src="https://i.pravatar.cc/150?u=2" alt="Member" className="avatar-stack" />
+          <img src="https://i.pravatar.cc/150?u=3" alt="Member" className="avatar-stack" />
+          <div className="avatar-stack" style={{ background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 'bold' }}>+4</div>
+        </div>
+
+        <button className="join-btn">Join Now</button>
+      </div>
     </aside>
   )
 }
