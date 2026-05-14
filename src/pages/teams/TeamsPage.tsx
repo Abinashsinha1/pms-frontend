@@ -2,9 +2,9 @@ import React from 'react'
 
 const TeamsPage = () => {
   return (
-    <div>
-      <h1>Teams Page</h1>
-      <p>This is the Teams Page.</p>
+    <div className="page-content">
+      <h1>Team</h1>
+      <p>Collaborate with your team members.</p>
     </div>
   )
 }
